@@ -47,9 +47,11 @@ def get_balance():
         response.raise_for_status()
         balance = response.json()
         balance = balance.get('SpotWallet', {})
+        response_to_show=[]
         for coin in balance:
-            print(f"{coin} Free: {balance.get(coin, {}).get('Free')} Locked: {balance.get(coin, {}).get('Lock')}")
-        return response.json()
+            response_to_show.append(f"{coin} Free: {balance.get(coin, {}).get('Free')} Locked: {balance.get(coin, {}).get('Lock')}")
+        print(response_to_show)
+        return response_to_show
     except requests.exceptions.RequestException as e:
         print(f"Error getting balance: {e}")
         print(f"Response text: {e.response.text if e.response else 'N/A'}")
